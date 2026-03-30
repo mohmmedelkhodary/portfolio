@@ -1,0 +1,155 @@
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-sans); }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 32px; border-bottom: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); position: sticky; top: 0; z-index: 10; }
+.logo { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-size: 14px; color: var(--color-text-secondary); text-decoration: none; }
+.cart-btn { position: relative; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 8px 16px; font-size: 14px; cursor: pointer; color: var(--color-text-primary); }
+.cart-count { position: absolute; top: -6px; right: -6px; background: #2563eb; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+.hero { padding: 48px 32px; background: #0f172a; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.hero-text h1 { font-size: 32px; font-weight: 500; color: #fff; margin-bottom: 10px; }
+.hero-text p { font-size: 15px; color: #94a3b8; margin-bottom: 24px; }
+.hero-btn { display: inline-block; padding: 11px 26px; background: #2563eb; color: #fff; border-radius: var(--border-radius-md); font-size: 14px; border: none; cursor: pointer; }
+.hero-badge { background: #1e293b; border-radius: var(--border-radius-lg); padding: 24px 32px; text-align: center; color: #fff; min-width: 160px; }
+.hero-badge-num { font-size: 36px; font-weight: 500; color: #60a5fa; }
+.hero-badge-text { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+.section { padding: 40px 32px; }
+.section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+.section-title { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.see-all { font-size: 13px; color: #2563eb; cursor: pointer; text-decoration: none; }
+.cats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.cat-btn { padding: 7px 16px; border-radius: 99px; border: 0.5px solid var(--color-border-tertiary); font-size: 13px; cursor: pointer; color: var(--color-text-secondary); background: var(--color-background-primary); }
+.cat-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+.products { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.product-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+.product-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 52px; background: var(--color-background-secondary); }
+.product-info { padding: 14px; }
+.product-name { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.product-cat { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; }
+.product-footer { display: flex; justify-content: space-between; align-items: center; }
+.product-price { font-size: 16px; font-weight: 500; color: #2563eb; }
+.add-btn { padding: 6px 12px; background: #2563eb; color: #fff; border: none; border-radius: var(--border-radius-md); font-size: 12px; cursor: pointer; }
+.add-btn:hover { background: #1d4ed8; }
+.old-price { font-size: 12px; color: var(--color-text-secondary); text-decoration: line-through; margin-bottom: 2px; }
+.badge-sale { display: inline-block; background: #fee2e2; color: #991b1b; font-size: 11px; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
+.toast { position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #fff; padding: 12px 20px; border-radius: var(--border-radius-md); font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
+.toast.show { opacity: 1; }
+footer { border-top: 0.5px solid var(--color-border-tertiary); padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
+.footer-text { font-size: 13px; color: var(--color-text-secondary); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 13px; color: var(--color-text-secondary); text-decoration: none; }
+</style>
+
+<nav>
+  <div class="logo">Noon Store</div>
+  <div class="nav-right">
+    <a class="nav-link" href="#">الرئيسية</a>
+    <a class="nav-link" href="#">المنتجات</a>
+    <a class="nav-link" href="#">عروض</a>
+    <button class="cart-btn" onclick="openCart()">🛒 السلة <span class="cart-count" id="cart-count">0</span></button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <h1>تسوق بذكاء،<br>وفر أكثر</h1>
+    <p>أفضل المنتجات بأسعار لا تُقاوم — توصيل سريع لباب بيتك</p>
+    <button class="hero-btn">تسوق الآن</button>
+  </div>
+  <div class="hero-badge">
+    <div class="hero-badge-num">+500</div>
+    <div class="hero-badge-text">منتج متوفر</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">المنتجات</div>
+    <a class="see-all" href="#">عرض الكل</a>
+  </div>
+
+  <div class="cats">
+    <button class="cat-btn active" onclick="filter('all', this)">الكل</button>
+    <button class="cat-btn" onclick="filter('tech', this)">إلكترونيات</button>
+    <button class="cat-btn" onclick="filter('fashion', this)">أزياء</button>
+    <button class="cat-btn" onclick="filter('home', this)">منزل</button>
+    <button class="cat-btn" onclick="filter('sport', this)">رياضة</button>
+  </div>
+
+  <div class="products" id="products-grid"></div>
+</div>
+
+<footer>
+  <div class="footer-text">© 2025 Noon Store — جميع الحقوق محفوظة</div>
+  <div class="footer-links">
+    <a href="#">سياسة الخصوصية</a>
+    <a href="#">تواصل معنا</a>
+    <a href="#">الشحن والإرجاع</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  { id:1, name:'سماعات لاسلكية', cat:'tech', price:149, old:199, emoji:'🎧', sale:true },
+  { id:2, name:'ساعة ذكية', cat:'tech', price:299, old:null, emoji:'⌚', sale:false },
+  { id:3, name:'حذاء رياضي', cat:'sport', price:89, old:120, emoji:'👟', sale:true },
+  { id:4, name:'حقيبة جلدية', cat:'fashion', price:199, old:null, emoji:'👜', sale:false },
+  { id:5, name:'مصباح ذكي', cat:'home', price:49, old:65, emoji:'💡', sale:true },
+  { id:6, name:'قميص كاجوال', cat:'fashion', price:59, old:null, emoji:'👕', sale:false },
+  { id:7, name:'كيبورد لاسلكي', cat:'tech', price:119, old:149, emoji:'⌨️', sale:true },
+  { id:8, name:'حصيرة يوغا', cat:'sport', price:69, old:null, emoji:'🧘', sale:false },
+];
+
+let cart = 0;
+let current = 'all';
+
+function render(cat) {
+  const grid = document.getElementById('products-grid');
+  const list = cat === 'all' ? products : products.filter(p => p.cat === cat);
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img">${p.emoji}</div>
+      <div class="product-info">
+        ${p.sale ? '<span class="badge-sale">تخفيض</span>' : ''}
+        <div class="product-name">${p.name}</div>
+        <div class="product-cat">${{tech:'إلكترونيات',fashion:'أزياء',home:'منزل',sport:'رياضة'}[p.cat]}</div>
+        ${p.old ? `<div class="old-price">${p.old} ر.س</div>` : ''}
+        <div class="product-footer">
+          <div class="product-price">${p.price} ر.س</div>
+          <button class="add-btn" onclick="addCart('${p.name}')">أضف للسلة</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filter(cat, btn) {
+  current = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render(cat);
+}
+
+function addCart(name) {
+  cart++;
+  document.getElementById('cart-count').textContent = cart;
+  showToast('تمت الإضافة: ' + name);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function openCart() {
+  showToast(cart === 0 ? 'السلة فارغة!' : `عندك ${cart} منتج في السلة`);
+}
+
+render('all');
+</script>
